@@ -163,9 +163,9 @@ function Home() {
       <section id="top" className="relative mx-auto min-h-[760px] max-w-[1440px] px-6 pb-16 md:min-h-[calc(100dvh-96px)] md:px-10 md:pb-10" aria-label="hero section">
         <div className="pointer-events-none absolute left-1/2 top-[7%] h-[620px] w-[min(92vw,1060px)] -translate-x-1/2 rounded-full bg-[#6c2c8b]/10 blur-[100px]" />
         <div className="absolute left-1/2 top-[5%] z-0 w-full -translate-x-1/2 space-y-8 text-center md:top-[3%]">
-          <h1 className="display-title select-none whitespace-nowrap text-[25vw] text-[#4d4950]/45 tracking-[0.1em] md:text-[19vw] md:tracking-[24px] lg:text-[240px]">MUHAMMAD</h1>
-          <h1 className="display-title -mt-[1vw] select-none whitespace-nowrap text-[25vw] text-[#4d4950]/45 tracking-[0.1em] md:text-[19vw] md:tracking-[24px] lg:text-[240px]">ALIF</h1>
-          <h1 className="display-title -mt-[1vw] select-none whitespace-nowrap text-[25vw] text-[#4d4950]/45 tracking-[0.1em] md:text-[19vw] md:tracking-[24px] lg:text-[240px]">RAMADHAN</h1>
+          <h1 className="display-title select-none whitespace-nowrap text-[18vw] text-[#4d4950]/45 tracking-tight md:text-[18vw] md:tracking-[24px] lg:text-[240px]">MUHAMMAD</h1>
+          <h1 className="display-title -mt-[1vw] select-none whitespace-nowrap text-[18vw] text-[#4d4950]/45 tracking-tight md:text-[18vw] md:tracking-[24px] lg:text-[240px]">ALIF</h1>
+          <h1 className="display-title -mt-[1vw] select-none whitespace-nowrap text-[19vw] text-[#4d4950]/45 tracking-tight md:text-[18vw] md:tracking-[24px] lg:text-[240px]">RAMADHAN</h1>
         </div>
 
         {/* ini section info di kiri */}
@@ -177,19 +177,19 @@ function Home() {
             viewport={{ once: false, amount: 0.3 }}
             transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
           >
-            <p className="mono mb-4 text-[9px] uppercase text-[#887f8e]">Future Programmer</p>
+            <p className="mono mb-4 text-[9px] uppercase text-[#887f8e]">Programmer.</p>
             <h2 className="script max-w-[420px] -rotate-3 text-[57px] leading-[.8] text-[#9b45d2] md:text-[76px]">Front End Developer</h2>
             <p className="script mt-5 text-[28px] text-[#eeeae4] md:text-[34px]">UI / UX</p>
             <div className="mt-8 max-w-[260px] border-l border-[#82509e] pl-4">
-              <p className="mono text-[10px] uppercase leading-[1.7] text-[#d4ced8]">FEATURED WORK</p>
-              <p className="mt-2 text-xs leading-relaxed text-[#7d7684]">Creating clean, scalable, and user-centered digital interfaces with React.</p>
+              <p className="mono text-[10px] uppercase leading-[1.7] text-[#d4ced8]">VISI MISI</p>
+              <p className="mt-2 text-xs leading-relaxed text-[#7d7684]">Membuat antarmuka digital yang bersih, Responsif dan berfokus pada pengguna menggunakan React.</p>
             </div>
           </motion.div>
 
         {/* ini foto */}
           <div
             ref={photoRef}
-            className="relative order-1 h-[510px] md:order-2 md:h-[700px] cursor-pointer"
+            className="relative order-1 h-[530px] sm:order-1 md:order-2 md:h-[700px] cursor-pointer"
             onMouseMove={handlePhotoMouseMove}
             onMouseEnter={handlePhotoMouseEnter}
             onMouseLeave={handlePhotoMouseLeave}
@@ -206,26 +206,26 @@ function Home() {
                 pointerEvents: 'auto',
               }}
             >
-              <img src="/logo.png" alt="Profile" />
+              <img className="-mt-[15px] h-full w-full object-contain mx-auto !opacity-105" src="/logo.png" alt="Profile" />
             </div>
           </div>
 
         {/* ini card project */}
           <motion.aside
-            className="order-3 mt-[-20px] ml-auto w-[205px] border border-[#39313f] bg-[#1b1722]/80 p-5 backdrop-blur-sm md:mt-24 md:mb-0"
+            className="outline outline-1 order-3 mb-[-70px] mt-[35px] ml-auto w-[230px] border border-[#39313f] bg-[#1b1722]/80 p-5 backdrop-blur-sm md:mt-24 md:mb-0"
             initial={{ opacity: 0, x: 120 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: false, amount: 0.3 }}
-            transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1], delay: 0.15 }}
+            transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1], delay: 0.10 }}
           >
             <div className="mb-5 flex items-center justify-between">
               <span className="h-1.5 w-1.5 rounded-full bg-[#b76cf4] shadow-[0_0_14px_rgba(183,108,244,.8)]" />
-              <span className="mono text-[8px] uppercase text-[#716a78]">04 September 2026</span>
+              <span className="mono text-[8px] uppercase text-[#716a78]">September 2026</span>
             </div>
-            <h3 className="max-w-[130px] text-[19px] font-semibold uppercase leading-[.95] tracking-[-.04em] text-[#eeeae4]">Latest Project</h3>
-            <p className="mt-4 text-[10px] leading-relaxed text-[#88808e]">You can check my latest project in PROJECT section, i try build website by applying my knowledge of front-end and UI/UX.</p>
+            <h3 className="max-w-[130px] text-[19px] font-semibold uppercase leading-[.95] tracking-[-.04em] text-[#eeeae4]">Proyek Terakhir</h3>
+            <p className="mt-4 text-[12px] leading-relaxed text-[#88808e]">amu bisa melihat proyek terbaru saya di bagian PROJECT, tempat saya membangun situs web dengan menerapkan keahlian front-end dan UI/UX.</p>
             <button onClick={scrollToProjects} className="group mt-5 flex items-center gap-2 text-[10px] uppercase tracking-[.1em] text-[#c581ef] cursor-pointer" data-testid="button-project-card">
-              {submitted ? 'Inquired' : 'Check Project'} <ArrowUpRight size={13} className="transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+              {submitted ? 'Inquired' : 'Cek Proyek'} <ArrowUpRight size={13} className="transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
             </button>
           </motion.aside>
         </div>
@@ -251,28 +251,28 @@ function Home() {
         <div className="grid gap-12 md:grid-cols-[.8fr_1.4fr] md:items-end">
 
           <div className="reveal-delay-2 reveal">
-            <p className="mono text-[9px] uppercase tracking-[.28em] text-[#a65ee8]">My Vision</p>
-            <h2 className="mt-5 text-4xl font-semibold uppercase leading-[.9] tracking-[-.06em] text-[#e9e5dd] md:text-7xl">Building<br /><span className="text-[#77717d]">Clean Design</span></h2>
+            <p className="mono text-[9px] uppercase tracking-[.28em] text-[#a65ee8]">Tujuan Saya</p>
+            <h2 className="mt-5 text-4xl font-semibold uppercase leading-[.9] tracking-[-.06em] text-[#ffffff] md:text-7xl">Membangun<br /><span className="text-[#ffffff]">Antarmuka Modern</span></h2>
           </div>
 
           <p className="max-w-[440px] text-sm leading-[1.8] text-[#8c8591] md:justify-self-end">
-            Crafting modern, visually striking interfaces with thoughtful component architecture and precision styling. 
-            I prioritize user accessibility and intuitive layouts so every interface is instantly clear. 
-            My core approach is combining strong visual aesthetics with a seamless user experience.
+            Merancang antarmuka modern yang menarik secara visual dengan arsitektur komponen yang terstruktur dan styling yang presisi. 
+            Saya memprioritaskan aksesibilitas serta tata letak yang intuitif agar setiap antarmuka langsung mudah dipahami. 
+            Pendekatan utama saya adalah menggabungkan estetika visual yang kuat dengan pengalaman pengguna yang responsif dan lancar.
           </p>
 
         </div>
         
         <div className="mt-20 grid gap-px border-y border-[#302938] md:grid-cols-3">
           {[
-            ['01', 'INTUITIVE LAYOUT', 'Organizing components thoughtfully so users never get lost or confused on their first visit.'],
-            ['02', 'TAILORED STYLING', 'Selecting the perfect visual style and modern aesthetic tailored to match the product\'s identity.'],
-            ['03', 'USER ACCESSIBILITY', 'Designing with clear structure and inclusive patterns so every user can navigate with ease.'],
+            ['01', 'tata letak', 'Menyusun komponen dengan cerdas agar pengguna tidak merasa bingung saat pertama kali berkunjung.'],
+            ['02', 'menyesuaikan tampilan', 'Memilih gaya visual yang tepat dan estetika modern yang disesuaikan dengan identitas produk.'],
+            ['03', 'aksesibilitas', 'Merancang dengan struktur yang jelas dan pola yang inklusif agar setiap pengguna dapat berinteraksi dengan mudah.'],
           ].map(([number, title, copy]) => (
             <article className="group border-b border-[#302938] py-8 md:border-b-0 md:border-r md:px-8 md:first:pl-0 md:last:border-0" key={number} data-testid={`card-feature-${number}`}>
-              <span className="mono text-[10px] text-[#a65ee8]">{number}</span>
+              <span className="mono text-[13px] text-[#a65ee8]">{number}</span>
               <h3 className="mt-10 text-xl uppercase tracking-[-.04em] text-[#e9e5dd] transition-colors group-hover:text-[#bd75ed]">{title}</h3>
-              <p className="mt-3 max-w-[230px] text-xs leading-relaxed text-[#7d7684]">{copy}</p>
+              <p className="mt-3 max-w-[230px] text-[14px] leading-relaxed text-[#7d7684]">{copy}</p>
             </article>
           ))}
         </div>
@@ -282,8 +282,8 @@ function Home() {
       {/* ini about me section bolo */}
       <section id="concept" className="border-y border-[#302938] bg-[#14111b] px-6 py-24 md:px-10 md:py-36">
         <div className="mx-auto grid max-w-[1440px] gap-14 md:grid-cols-[1fr_1fr] md:items-center">
-          <div className="relative min-h-[300px] rounded-md overflow-hidden border border-[#302938] bg-[#0e0c13] p-6 md:min-h-[470px]">
-            <span className="mono absolute left-6 top-6 z-10 text-[9px] uppercase text-[#FFFFFF]">About Me / Alif</span>
+          <div className="outline outline-2 relative min-h-[300px] rounded-md overflow-hidden border border-[#302938] bg-[#0e0c13] p-6 md:min-h-[470px]">
+            <span className="mono absolute left-6 top-6 z-10 text-[9px] uppercase text-[#FFFFFF]">Tentang Saya / Alif</span>
             <img 
               src="/aboutMe.jpeg" 
               alt="About Me" 
@@ -292,14 +292,15 @@ function Home() {
             <div className="absolute inset-0 bg-gradient-to-t from-[#0e0c13] via-transparent to-transparent"/>
           </div>
           <div>
-            <p className="mono text-[9px] uppercase tracking-[.28em] text-[#a65ee8]">Introduction</p>
-            <p className="mt-6 text-3xl font-semibold uppercase leading-[.88] tracking-[-.07em] md:text-5xl">Passionate about code & crafting digital experiences.</p>
+            <p className="mono text-[9px] uppercase tracking-[.28em] text-[#a65ee8]">Perkenalan</p>
+            <p className="mt-6 text-3xl font-semibold uppercase leading-[.88] tracking-[-.07em] md:text-5xl">Memiliki passion di bidang coding selama 2 tahun.</p>
             <p className="mt-8 max-w-[500px] text-sm leading-[1.8] text-[#8c8591]">
-              I have been deeply rooted in Computer Science since vocational high school through to my current university studies. 
-              My journey includes working at Gramedia as a Web Designer and Scratch Game Developer, where I sharpened my visual design and logic building skills. 
-              Highly adaptive and continuous in learning, I am always eager to explore new technologies to build intuitive digital products.</p>
+              Keterlibatan saya di dunia Ilmu Komputer sudah dimulai sejak SMK hingga studi perguruan tinggi saat ini. 
+              Perjalanan saya mencakup pengalaman kerja di Gramedia sebagai Web Designer dan Scratch Game Developer, 
+              tempat saya mengasah keterampilan desain visual serta logika pemrograman. 
+              Beradaptasi dengan cepat dan terus belajar, saya selalu antusias mengeksplorasi teknologi baru untuk membangun produk digital yang intuitif.</p>
             <button onClick={() => scrollTo('#projects')} className="group mt-10 flex items-center gap-3 border-b border-[#61576b] pb-2 text-[10px] uppercase tracking-[.16em] text-[#d3cbd9] transition-colors hover:border-[#b76cf4] hover:text-[#b76cf4] cursor-pointer" data-testid="button-read-concept">
-              View My Experience <MoveRight size={15} className="transition-transform group-hover:translate-x-1" />
+              Lihat Pengalaman Saya <MoveRight size={15} className="transition-transform group-hover:translate-x-1" />
             </button>
           </div>
         </div>
@@ -310,9 +311,9 @@ function Home() {
         <div className="flex flex-col justify-between gap-5 md:flex-row md:items-end">
           <div>
             <p className="mono text-[9px] uppercase tracking-[.28em] text-[#a65ee8]">2026</p>
-            <h2 className="mt-5 text-4xl font-semibold uppercase tracking-[-.06em] text-[#e9e5dd] md:text-6xl">Project.</h2>
+            <h2 className="mt-5 text-4xl font-semibold uppercase tracking-[-.06em] text-[#e9e5dd] md:text-6xl">Proyek.</h2>
           </div>
-          <p className="mono text-[13px] uppercase tracking-[.12em] text-[#716a78]">Three Latest Project that i made.</p>
+          <p className="mono text-[13px] uppercase tracking-[.12em] text-[#716a78]">Beberapa proyek yang terakhir di buat.</p>
         </div>
         <div className="mt-14 grid gap-4 md:grid-cols-[1.2fr_.8fr]">
           <motion.a
@@ -330,14 +331,14 @@ function Home() {
             <img
               src="/Project/project1.png"
               alt="VClass Tracker project preview"
-              className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
+              className="absolute inset-0 h-full w-full object-cover transition-transform duration-700"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-[#100e16]/95 via-[#100e16]/20 to-transparent" />
             <div className="relative flex h-full flex-col justify-between">
               <span className="mono text-[9px] uppercase text-[#e4c8ef]">01 / VClass Tracker</span>
               <div className="translate-y-2 transition-transform duration-500 group-hover:translate-y-0">
-                <p className="mono text-5xl text-[#FFFFFF]">VClass Tracker.</p>
-                <p className="mt-3 max-w-[240px] text-xs leading-relaxed text-[#e4dbe8]">A focused dashboard for tracking virtual-class schedules and activity.</p>
+                <p className="mono text-3xl text-[#FFFFFF]">VClass Tracker</p>
+                <p className="mt-3 max-w-[200px] text-xs leading-relaxed text-[#e4dbe8]">Dashboard pelacak dan pengingat deadline tugas mahasiswa.</p>
               </div>
             </div>
           </motion.a>
@@ -357,14 +358,14 @@ function Home() {
               <img
                 src="/Project/project2.png"
                 alt="Portfolio website project preview"
-                className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
+                className="absolute inset-0 h-full w-full object-cover transition-transform duration-700"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-[#100e16]/95 via-[#100e16]/25 to-transparent" />
               <div className="relative flex h-full flex-col justify-between">
                 <span className="mono text-[9px] uppercase text-[#e4c8ef]">02 / Portfolio Website</span>
                 <div className="translate-y-2 transition-transform duration-500 group-hover:translate-y-0">
-                  <p className="mono text-4xl text-[#ded3e2]">Personal presence.</p>
-                  <p className="mt-2 text-xs leading-relaxed text-[#d9cedd]">A responsive portfolio made to present work with clarity.</p>
+                  <p className="mono text-3xl text-[#ded3e2]">Portofolio</p>
+                  <p className="mt-2 text-xs leading-relaxed text-[#d9cedd]">Portofolio untuk menampilkan hasil karya yang saya buat.</p>
                 </div>
               </div>
             </motion.a>
@@ -383,13 +384,13 @@ function Home() {
               <img
                 src="/Project/ComingSoon.jpg"
                 alt="Coming Soon project preview"
-                className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
+                className="absolute inset-0 h-full w-full object-cover transition-transform duration-700"
               />
               <div className="relative flex h-full flex-col justify-between">
                 <span className="mono text-[9px] uppercase text-[#716a78]">03 / Upcoming</span>
                 <div className="translate-y-2 transition-transform duration-500 group-hover:translate-y-0">
-                  <p className="mono text-4xl text-[#ded3e2]">On Progress.</p>
-                  <p className="mt-2 text-xs leading-relaxed text-[#756d7c]">Stay tuned for upcoming projects.</p>
+                  <p className="mono text-3xl text-[#ded3e2]">On Progress.</p>
+                  <p className="mt-2 text-xs leading-relaxed text-[#ffffff]">Pantau terus untuk proyek mendatang.</p>
                 </div>
               </div>
             </motion.a>
@@ -397,7 +398,7 @@ function Home() {
         </div>
         <div className="mt-14">
             <p className="mono text-[9px] uppercase tracking-[.28em] text-[#a65ee8]">2026</p>
-            <h2 className="mt-5 text-4xl font-semibold uppercase tracking-[-.06em] text-[#e9e5dd] md:text-6xl">Certificate.</h2>
+            <h2 className="mt-5 text-4xl font-semibold uppercase tracking-[-.06em] text-[#e9e5dd] md:text-6xl">Sertifikat.</h2>
             <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
               {certificates.map((cert, index) => {
                 const offsets = [
@@ -419,13 +420,14 @@ function Home() {
                     <img
                       src={cert.image}
                       alt={cert.title}
-                      className="absolute inset-0 h-full w-full object-cover opacity-90 transition-transform duration-500 group-hover:scale-105 group-hover:opacity-90"
+                      className="absolute inset-0 h-full w-full object-cover opacity-90 transition-transform duration-500 group-hover:scale-95 group-hover:opacity-90"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-[#100e16]/90 via-transparent to-transparent" />
-                    <span className="mono relative z-10 text-[9px] uppercase text-[#c7b5d1]">{cert.number} / Certificate</span>
-                    <div className="relative z-10">
-                      <p className="text-sm font-semibold uppercase text-[#e9e5dd]">{cert.title}</p>
-                      <p className="text-[10px] text-[#7d7684]">{cert.issuer}</p>
+                    
+                    {/* Posisikan teks di kiri bawah secara absolute */}
+                    <div className="absolute bottom-4 left-4 z-10 text-left">
+                      <p className="text-md font-semibold uppercase text-[#e9e5dd]">{cert.title}</p>
+                      <p className="text-[14px] text-[#ffffff]">{cert.issuer}</p>
                     </div>
                   </motion.div>
                 );
@@ -438,11 +440,11 @@ function Home() {
       <section id="contact" className="border-t border-[#302938] px-6 py-20 md:px-10 md:py-28">
         <div className="mx-auto flex max-w-[1440px] flex-col items-start justify-between gap-10 md:flex-row md:items-center">
           <div>
-            <p className="mono text-[12px] uppercase tracking-[.28em] text-[#a65ee8]">IM AVAILABLE</p>
-            <h2 className="mt-5 max-w-[700px] text-4xl font-semibold uppercase leading-[.85] tracking-[-.07em] text-[#FFFFFF] md:text-7xl">Let's work together.<br /><span className="text-[#FFFFFF]">Contact Me</span></h2>
+            <p className="mono text-[12px] uppercase tracking-[.28em] text-[#a65ee8]">TERSEDIA BEKERJA</p>
+            <h2 className="mt-5 max-w-[700px] text-4xl font-semibold uppercase leading-[.85] tracking-[-.07em] text-[#FFFFFF] md:text-7xl">Mari bekerja sama.<br /><span className="text-[#FFFFFF]">Hubungi Saya</span></h2>
           </div>
           <div className="max-w-[260px]">
-            <p className="text-sm leading-relaxed text-[#8c8591]">Feel free to reach out for collaborations, project inquiries, or any questions.</p>
+            <p className="text-sm leading-relaxed text-[#8c8591]">Jangan ragu untuk menghubungi saya jika ada pertanyaan atau peluang kerja sama.</p>
             <button onClick={handleContact} className="group mt-7 flex items-center gap-3 border border-[#a65ee8] px-5 py-3 text-[10px] uppercase tracking-[.14em] text-[#d7a0fa] transition-all hover:bg-[#a65ee8] hover:text-[#100e16] cursor-pointer" data-testid="button-contact-submit">
               {submitted ? <><Check size={14} /> Message Sent</> : <>Send Message <ArrowUpRight size={14} className="transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" /></>}
             </button>
