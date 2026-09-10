@@ -1,0 +1,135 @@
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&family=DM+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+@import 'tailwindcss';
+@import 'tw-animate-css';
+
+@theme inline {
+  --font-sans: var(--font-body);
+  --font-mono: var(--font-mono-face);
+  --color-background: hsl(var(--background));
+  --color-foreground: hsl(var(--foreground));
+  --color-card: hsl(var(--card));
+  --color-card-foreground: hsl(var(--card-foreground));
+  --color-border: hsl(var(--border));
+  --color-muted: hsl(var(--muted));
+  --color-muted-foreground: hsl(var(--muted-foreground));
+  --color-primary: hsl(var(--primary));
+  --color-primary-foreground: hsl(var(--primary-foreground));
+  --color-accent: hsl(var(--accent));
+  --color-accent-foreground: hsl(var(--accent-foreground));
+  --radius-lg: var(--radius);
+}
+
+:root {
+  --background: 258 18% 6%;
+  --foreground: 42 18% 91%;
+  --card: 255 18% 10%;
+  --card-foreground: 42 18% 91%;
+  --border: 256 15% 21%;
+  --muted: 255 14% 16%;
+  --muted-foreground: 250 8% 58%;
+  --primary: 271 82% 62%;
+  --primary-foreground: 260 30% 7%;
+  --accent: 45 88% 67%;
+  --accent-foreground: 260 30% 7%;
+  --font-body: 'Space Grotesk', sans-serif;
+  --font-mono-face: 'DM Mono', monospace;
+  --font-script: 'Caveat', cursive;
+  --radius: 0.75rem;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  min-width: 320px;
+  background: #100e16;
+  color: #eeeae4;
+  font-family: var(--font-body);
+  text-rendering: optimizeLegibility;
+}
+button, a { -webkit-tap-highlight-color: transparent; }
+button { font: inherit; }
+
+::selection { background: #a65ee8; color: #100e16; }
+
+.grain::after {
+  content: '';
+  position: fixed;
+  z-index: 30;
+  inset: 0;
+  opacity: .055;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.82' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.65'/%3E%3C/svg%3E");
+  mix-blend-mode: screen;
+}
+
+.page-shell {
+  background:
+    radial-gradient(ellipse at 50% 16%, rgba(78, 48, 107, .24), transparent 38rem),
+    radial-gradient(ellipse at 74% 76%, rgba(85, 34, 113, .1), transparent 34rem),
+    #100e16;
+}
+
+.display-title {
+  font-family: var(--font-body);
+  font-weight: 700;
+  letter-spacing: -.09em;
+  line-height: .82;
+}
+.script { font-family: var(--font-script); }
+.mono { font-family: var(--font-mono-face); letter-spacing: .08em; }
+
+.reveal {
+  animation: reveal-up .8s cubic-bezier(.16, 1, .3, 1) both;
+}
+.reveal-delay-1 { animation-delay: .12s; }
+.reveal-delay-2 { animation-delay: .22s; }
+.reveal-delay-3 { animation-delay: .34s; }
+.reveal-delay-4 { animation-delay: .48s; }
+.float-slow { animation: float-slow 3s ease-in-out infinite; }
+.float-slow-delayed { animation: float-slow 3.5s ease-in-out .8s infinite; }
+
+@keyframes reveal-up {
+  from { opacity: 0; transform: translateY(22px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes float-slow {
+  0%, 100% { transform: translateY(0) rotate(-1deg); }
+  50% { transform: translateY(-12px) rotate(1deg); }
+}
+
+.jacket-window {
+  position: absolute;
+  inset: 8% 7% 2%;
+  overflow: hidden;
+  pointer-events: none;
+  -webkit-mask-image: radial-gradient(ellipse 61% 57% at 50% 48%, #000 50%, transparent 84%);
+  mask-image: radial-gradient(ellipse 61% 57% at 50% 48%, #000 50%, transparent 84%);
+}
+.jacket-window img {
+  position: absolute;
+  width: 150%;
+  max-width: none;
+  left: -25%;
+  top: -18%;
+  mix-blend-mode: screen;
+  opacity: .98;
+  filter: contrast(1.05) saturate(.86);
+}
+
+.hairline { height: 1px; background: linear-gradient(90deg, transparent, rgba(238,234,228,.25), transparent); }
+
+@media (max-width: 767px) {
+  .jacket-window {
+    inset: 15% -20% 4%;
+    -webkit-mask-image: radial-gradient(ellipse 62% 51% at 50% 46%, #000 39%, transparent 79%);
+    mask-image: radial-gradient(ellipse 62% 51% at 50% 46%, #000 39%, transparent 79%);
+  }
+  .jacket-window img { width: 183%; left: -41.5%; top: -5%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .reveal, .float-slow, .float-slow-delayed { animation: none; }
+}
