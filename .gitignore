@@ -41,8 +41,8 @@ pnpm-debug.log*
 # File di dalam folder public/Project/
 public/Project/project1.png
 public/Project/project2.png
-public/Project/"Sertifikat 1.jpeg"
-public/Project/"Sertifikat 2.jpeg"
+public/Project/Sertifikat1.jpeg
+public/Project/Sertifikat2.jpeg
 
 # File di dalam folder public/
 public/aboutMe.jpeg
