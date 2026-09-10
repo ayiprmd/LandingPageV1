@@ -25,14 +25,14 @@ const certificates = [
     number: '01',
     title: 'Education Games',
     issuer: 'Gramedia / Internal Course',
-    image: '/Project/Sertifikat 1.jpeg',
+    image: '/Project/Sertifikat1.jpeg',
   },
   {
     id: 2,
     number: '02',
     title: 'Internship Program',
     issuer: 'Diginusa',
-    image: '/Project/Sertifikat 2.jpeg',
+    image: '/Project/Sertifikat2.jpeg',
   },
   {
     id: 3,
@@ -189,24 +189,33 @@ function Home() {
         {/* ini foto */}
           <div
             ref={photoRef}
-            className="relative order-1 h-[530px] sm:order-1 md:order-2 md:h-[700px] cursor-pointer"
+            className="relative order-1 h-[530px] sm:order-1 md:order-2 md:h-[900px] cursor-pointer"
             onMouseMove={handlePhotoMouseMove}
             onMouseEnter={handlePhotoMouseEnter}
             onMouseLeave={handlePhotoMouseLeave}
             style={{ perspective: '800px' }}
           >
             <div
-              className={`photo-window ${isHovering ? '' : 'float-slow'}`}
-              aria-label="Profile"
-              style={{
-                transform: `rotateX(${tilt.rotateX}deg) rotateY(${tilt.rotateY}deg) scale(${isHovering ? 1.05 : 1})`,
-                transition: isHovering
-                  ? 'transform 0.1s ease-out'
-                  : 'transform 0.6s cubic-bezier(.16,1,.3,1)',
-                pointerEvents: 'auto',
-              }}
+              ref={photoRef}
+              className="relative order-1 h-[530px] sm:order-1 md:order-2 md:h-[700px] cursor-pointer"
+              onMouseMove={handlePhotoMouseMove}
+              onMouseEnter={handlePhotoMouseEnter}
+              onMouseLeave={handlePhotoMouseLeave}
+              style={{ perspective: '800px' }}
             >
-              <img className="-mt-[15px] h-full w-full object-contain mx-auto !opacity-105" src="/logo.png" alt="Profile" />
+              <div
+                className={`photo-window ${isHovering ? '' : 'float-slow'}`}
+                aria-label="Profile"
+                style={{
+                  transform: `rotateX(${tilt.rotateX}deg) rotateY(${tilt.rotateY}deg) scale(${isHovering ? 1.05 : 1})`,
+                  transition: isHovering
+                    ? 'transform 0.1s ease-out'
+                    : 'transform 0.6s cubic-bezier(.16,1,.3,1)',
+                  pointerEvents: 'auto',
+                }}
+              >
+                <img className="-mt-[15px] h-full w-full object-contain mx-auto !opacity-105" src="/logo.png" alt="Profile" />
+              </div>
             </div>
           </div>
 
