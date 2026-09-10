@@ -19,18 +19,42 @@ const sectionVariants = {
 };
 
 
+const certificates = [
+  {
+    id: 1,
+    number: '01',
+    title: 'Education Games',
+    issuer: 'Gramedia / Internal Course',
+    image: '/Project/Sertifikat 1.jpeg',
+  },
+  {
+    id: 2,
+    number: '02',
+    title: 'Internship Program',
+    issuer: 'Diginusa',
+    image: '/Project/Sertifikat 2.jpeg',
+  },
+  {
+    id: 3,
+    number: '03',
+    title: 'UI/UX Design Essentials',
+    issuer: 'Certification Authority',
+    image: '/Project/ComingSoon.jpg',
+  },
+];
+
 const queryClient = new QueryClient();
 
 const navItems = [
-  { label: 'Vision', href: '#collection' },
+  { label: 'Vision', href: '#vision' },
   { label: 'About Me', href: '#concept' },
-  { label: 'Projects', href: '#editorials' },
-  { label: 'Contact', href: '#lookbook' },
+  { label: 'Projects', href: '#projects' },
+  { label: 'Contact', href: '#contact' },
 ];
 
 function Home() {
   const [menuOpen, setMenuOpen] = useState(false);
-  const [ordered, setOrdered] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
 
   // 3D tilt state for profile photo
   const [tilt, setTilt] = useState({ rotateX: 0, rotateY: 0});
@@ -58,14 +82,14 @@ function Home() {
     setMenuOpen(false);
   };
 
-  const handlePreorder = () => {
-    setOrdered(true);
-    document.querySelector('#preorder')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    window.setTimeout(() => setOrdered(false), 4200);
+  const handleContact = () => {
+    setSubmitted(true);
+    document.querySelector('#contact')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    window.setTimeout(() => setSubmitted(false), 4200);
   };
 
-  const scrollToContact = () => scrollTo('#lookbook');
-  const scrollToProjects = () => scrollTo('#editorials');
+  const scrollToContact = () => scrollTo('#contact');
+  const scrollToProjects = () => scrollTo('#projects');
 
 
   return (
@@ -75,7 +99,7 @@ function Home() {
           onClick={() => scrollTo('#top')}
           className="group flex items-center gap-2.5 text-left cursor-pointer"
           data-testid="button-brand-home"
-          aria-label="Synth Era home"
+          aria-label="Portfolio home"
         >
           <span className="grid h-7 w-7 place-items-center border border-[#a65ee8] text-[10px] font-bold text-[#b76cf4] transition-colors group-hover:bg-[#a65ee8] group-hover:text-[#100e16]">A</span>
           <span className="mono text-[11px] font-medium uppercase tracking-[.2em] text-[#e9e5dd]">Muhammad Alif Ramadhan</span>
@@ -98,9 +122,9 @@ function Home() {
         <button
           onClick={scrollToContact}
           className="hidden border border-[#8b8493] px-4 py-2 text-[11px] uppercase tracking-[.12em] text-[#eeeae4] transition-all hover:border-[#b76cf4] hover:bg-[#b76cf4] hover:text-[#100e16] md:block cursor-pointer"
-          data-testid="button-preorder-header"
+          data-testid="button-contact-header"
         >
-          {ordered ? 'Reserved' : 'Contact Me'}
+          {submitted ? 'Message Sent' : 'Contact Me'}
         </button>
 
         <button
@@ -128,8 +152,8 @@ function Home() {
                 <ArrowUpRight size={15} />
               </button>
             ))}
-            <button onClick={handlePreorder} className="mt-1 w-full border border-[#a65ee8] px-4 py-3 text-left text-[11px] uppercase tracking-[.15em] text-[#d69cff] cursor-pointer" data-testid="button-preorder-mobile">
-              {ordered ? 'Reservation received' : 'Preorder the drop'}
+            <button onClick={handleContact} className="mt-1 w-full border border-[#a65ee8] px-4 py-3 text-left text-[11px] uppercase tracking-[.15em] text-[#d69cff] cursor-pointer" data-testid="button-contact-mobile">
+              {submitted ? 'Message Sent' : 'Get in Touch'}
             </button>
           </div>
         </div>
@@ -172,7 +196,7 @@ function Home() {
             style={{ perspective: '800px' }}
           >
             <div
-              className={`jacket-window ${isHovering ? '' : 'float-slow'}`}
+              className={`photo-window ${isHovering ? '' : 'float-slow'}`}
               aria-label="Profile"
               style={{
                 transform: `rotateX(${tilt.rotateX}deg) rotateY(${tilt.rotateY}deg) scale(${isHovering ? 1.05 : 1})`,
@@ -189,7 +213,6 @@ function Home() {
         {/* ini card project */}
           <motion.aside
             className="order-3 mt-[-20px] ml-auto w-[205px] border border-[#39313f] bg-[#1b1722]/80 p-5 backdrop-blur-sm md:mt-24 md:mb-0"
-            id="preorder"
             initial={{ opacity: 0, x: 120 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: false, amount: 0.3 }}
@@ -201,8 +224,8 @@ function Home() {
             </div>
             <h3 className="max-w-[130px] text-[19px] font-semibold uppercase leading-[.95] tracking-[-.04em] text-[#eeeae4]">Latest Project</h3>
             <p className="mt-4 text-[10px] leading-relaxed text-[#88808e]">You can check my latest project in PROJECT section, i try build website by applying my knowledge of front-end and UI/UX.</p>
-            <button onClick={scrollToProjects} className="group mt-5 flex items-center gap-2 text-[10px] uppercase tracking-[.1em] text-[#c581ef] cursor-pointer" data-testid="button-preorder-card">
-              {ordered ? 'Reserved for you' : 'Check Project'} <ArrowUpRight size={13} className="transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+            <button onClick={scrollToProjects} className="group mt-5 flex items-center gap-2 text-[10px] uppercase tracking-[.1em] text-[#c581ef] cursor-pointer" data-testid="button-project-card">
+              {submitted ? 'Inquired' : 'Check Project'} <ArrowUpRight size={13} className="transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
             </button>
           </motion.aside>
         </div>
@@ -211,7 +234,7 @@ function Home() {
         <motion.button
           onClick={() => scrollTo('#vision')}
           className="absolute bottom-8 left-1/2 z-10 hidden -translate-x-1/2 flex-col items-center gap-3 text-[#756d7c] transition-colors hover:text-[#b76cf4] md:flex cursor-pointer"
-          data-testid="button-scroll-collection"
+          data-testid="button-scroll-vision"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: false, amount: 0.3 }}
@@ -275,7 +298,7 @@ function Home() {
               I have been deeply rooted in Computer Science since vocational high school through to my current university studies. 
               My journey includes working at Gramedia as a Web Designer and Scratch Game Developer, where I sharpened my visual design and logic building skills. 
               Highly adaptive and continuous in learning, I am always eager to explore new technologies to build intuitive digital products.</p>
-            <button onClick={() => scrollTo('#editorials')} className="group mt-10 flex items-center gap-3 border-b border-[#61576b] pb-2 text-[10px] uppercase tracking-[.16em] text-[#d3cbd9] transition-colors hover:border-[#b76cf4] hover:text-[#b76cf4] cursor-pointer" data-testid="button-read-concept">
+            <button onClick={() => scrollTo('#projects')} className="group mt-10 flex items-center gap-3 border-b border-[#61576b] pb-2 text-[10px] uppercase tracking-[.16em] text-[#d3cbd9] transition-colors hover:border-[#b76cf4] hover:text-[#b76cf4] cursor-pointer" data-testid="button-read-concept">
               View My Experience <MoveRight size={15} className="transition-transform group-hover:translate-x-1" />
             </button>
           </div>
@@ -283,7 +306,7 @@ function Home() {
       </section>
 
       {/* ini project section */}
-      <section id="editorials" className="mx-auto max-w-[1440px] px-6 py-24 md:px-10 md:py-36">
+      <section id="projects" className="mx-auto max-w-[1440px] px-6 py-24 md:px-10 md:py-36">
         <div className="flex flex-col justify-between gap-5 md:flex-row md:items-end">
           <div>
             <p className="mono text-[9px] uppercase tracking-[.28em] text-[#a65ee8]">2026</p>
@@ -296,8 +319,11 @@ function Home() {
             href="https://github.com/ayiprmd/VClassTracker" 
             target="_blank"
             rel="noopener noreferrer"
-            className="group relative block min-h-[390px] overflow-hidden bg-[#241d2d] p-7 md:min-h-[540px]"
-            data-testid="card-editorial-midnight"
+            className="group relative rounded-md block min-h-[390px] overflow-hidden bg-[#241d2d] p-7 md:min-h-[540px]"
+            data-testid="card-project-1"
+            initial={{ opacity: 0, x: -100, y: 50 }}
+            whileInView={{ opacity: 1, x: 0, y: 0 }}
+            viewport={{ once: false, amount: 0.2 }}
             whileHover={{ y: -8, scale: 1.01 }}
             transition={{ type: 'spring', stiffness: 260, damping: 20 }}
           >
@@ -310,15 +336,21 @@ function Home() {
             <div className="relative flex h-full flex-col justify-between">
               <span className="mono text-[9px] uppercase text-[#e4c8ef]">01 / VClass Tracker</span>
               <div className="translate-y-2 transition-transform duration-500 group-hover:translate-y-0">
-                <p className="script text-5xl text-[#d69cff]">VClass Tracker.</p>
+                <p className="mono text-5xl text-[#FFFFFF]">VClass Tracker.</p>
                 <p className="mt-3 max-w-[240px] text-xs leading-relaxed text-[#e4dbe8]">A focused dashboard for tracking virtual-class schedules and activity.</p>
               </div>
             </div>
           </motion.a>
           <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-1">
-            <motion.article
-              className="group relative min-h-[255px] overflow-hidden border border-[#302938] bg-[#17131f] p-6"
-              data-testid="card-editorial-still"
+            <motion.a
+              href="https://github.com/ayiprmd/LandingPageV1" 
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group relative rounded-md min-h-[255px] overflow-hidden border border-[#302938] bg-[#17131f] p-6"
+              data-testid="card-project-2"
+              initial={{ opacity: 0, x: 100, y: -50 }}
+              whileInView={{ opacity: 1, x: 0, y: 0 }}
+              viewport={{ once: false, amount: 0.2 }}
               whileHover={{ y: -6, scale: 1.02 }}
               transition={{ type: 'spring', stiffness: 260, damping: 20 }}
             >
@@ -331,42 +363,88 @@ function Home() {
               <div className="relative flex h-full flex-col justify-between">
                 <span className="mono text-[9px] uppercase text-[#e4c8ef]">02 / Portfolio Website</span>
                 <div className="translate-y-2 transition-transform duration-500 group-hover:translate-y-0">
-                  <p className="script text-4xl text-[#ded3e2]">Personal presence.</p>
+                  <p className="mono text-4xl text-[#ded3e2]">Personal presence.</p>
                   <p className="mt-2 text-xs leading-relaxed text-[#d9cedd]">A responsive portfolio made to present work with clarity.</p>
                 </div>
               </div>
-            </motion.article>
-            <motion.article
-              className="group relative min-h-[255px] overflow-hidden border border-[#302938] bg-[#18151c] p-6"
-              data-testid="card-editorial-signal"
+            </motion.a>
+            <motion.a
+              href="" 
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group relative rounded-md min-h-[255px] overflow-hidden rounded-md border border-[#26212d] bg-[#1a1620] p-6"
+              data-testid="card-project-3"
+              initial={{ opacity: 0, x: 100, y: 50 }}
+              whileInView={{ opacity: 1, x: 0, y: 0 }}
+              viewport={{ once: false, amount: 0.2 }}
               whileHover={{ y: -6, scale: 1.02 }}
               transition={{ type: 'spring', stiffness: 260, damping: 20 }}
             >
-              <div className="absolute inset-0 bg-[radial-gradient(circle_at_75%_30%,rgba(166,94,232,.26),transparent_32%),linear-gradient(145deg,#21182a,#100e16_75%)]" />
-              <div className="absolute inset-4 border border-dashed border-[#a65ee8]/40 transition-transform duration-500 group-hover:scale-95" />
+              <img
+                src="/Project/ComingSoon.jpg"
+                alt="Coming Soon project preview"
+                className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
+              />
               <div className="relative flex h-full flex-col justify-between">
-                <span className="mono text-[9px] uppercase text-[#c7b5d1]">03 / Next Project</span>
+                <span className="mono text-[9px] uppercase text-[#716a78]">03 / Upcoming</span>
                 <div className="translate-y-2 transition-transform duration-500 group-hover:translate-y-0">
-                  <p className="script text-4xl text-[#d69cff]">On Progress.</p>
-                  <p className="mt-2 text-xs leading-relaxed text-[#aca2b0]">A new project is currently being designed and built.</p>
+                  <p className="mono text-4xl text-[#ded3e2]">On Progress.</p>
+                  <p className="mt-2 text-xs leading-relaxed text-[#756d7c]">Stay tuned for upcoming projects.</p>
                 </div>
               </div>
-            </motion.article>
+            </motion.a>
           </div>
+        </div>
+        <div className="mt-14">
+            <p className="mono text-[9px] uppercase tracking-[.28em] text-[#a65ee8]">2026</p>
+            <h2 className="mt-5 text-4xl font-semibold uppercase tracking-[-.06em] text-[#e9e5dd] md:text-6xl">Certificate.</h2>
+            <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+              {certificates.map((cert, index) => {
+                const offsets = [
+                  { x: -70, y: 40 },
+                  { x: 0, y: 60 },
+                  { x: 70, y: 40 },
+                ];
+                const offset = offsets[index % offsets.length];
+                return (
+                  <motion.div
+                    key={cert.id}
+                    className="group relative aspect-[4/3] rounded-md overflow-hidden border border-[#302938] bg-[#17131f] p-4 flex flex-col justify-between"
+                    initial={{ opacity: 0, x: offset.x, y: offset.y, scale: 0.95 }}
+                    whileInView={{ opacity: 1, x: 0, y: 0, scale: 1 }}
+                    viewport={{ once: false, amount: 0.2 }}
+                    whileHover={{ y: -4, scale: 1.01 }}
+                    transition={{ delay: index * 0.1, type: 'spring', stiffness: 260, damping: 20 }}
+                  >
+                    <img
+                      src={cert.image}
+                      alt={cert.title}
+                      className="absolute inset-0 h-full w-full object-cover opacity-90 transition-transform duration-500 group-hover:scale-105 group-hover:opacity-90"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#100e16]/90 via-transparent to-transparent" />
+                    <span className="mono relative z-10 text-[9px] uppercase text-[#c7b5d1]">{cert.number} / Certificate</span>
+                    <div className="relative z-10">
+                      <p className="text-sm font-semibold uppercase text-[#e9e5dd]">{cert.title}</p>
+                      <p className="text-[10px] text-[#7d7684]">{cert.issuer}</p>
+                    </div>
+                  </motion.div>
+                );
+              })}
+            </div>
         </div>
       </section>
 
-      {/* ini lookbook section bolo */}
-      <section id="lookbook" className="border-t border-[#302938] px-6 py-20 md:px-10 md:py-28">
+      {/* ini contact section bolo */}
+      <section id="contact" className="border-t border-[#302938] px-6 py-20 md:px-10 md:py-28">
         <div className="mx-auto flex max-w-[1440px] flex-col items-start justify-between gap-10 md:flex-row md:items-center">
           <div>
-            <p className="mono text-[9px] uppercase tracking-[.28em] text-[#a65ee8]">The first release</p>
-            <h2 className="mt-5 max-w-[700px] text-4xl font-semibold uppercase leading-[.85] tracking-[-.07em] text-[#e9e5dd] md:text-7xl">Seventy jackets.<br /><span className="text-[#77717d]">No second run.</span></h2>
+            <p className="mono text-[12px] uppercase tracking-[.28em] text-[#a65ee8]">IM AVAILABLE</p>
+            <h2 className="mt-5 max-w-[700px] text-4xl font-semibold uppercase leading-[.85] tracking-[-.07em] text-[#FFFFFF] md:text-7xl">Let's work together.<br /><span className="text-[#FFFFFF]">Contact Me</span></h2>
           </div>
           <div className="max-w-[260px]">
-            <p className="text-sm leading-relaxed text-[#8c8591]">Join the private list for first access, studio notes, and the next field test.</p>
-            <button onClick={handlePreorder} className="group mt-7 flex items-center gap-3 border border-[#a65ee8] px-5 py-3 text-[10px] uppercase tracking-[.14em] text-[#d7a0fa] transition-all hover:bg-[#a65ee8] hover:text-[#100e16] cursor-pointer" data-testid="button-join-list">
-              {ordered ? <><Check size={14} /> You&apos;re on the list</> : <>Join the private list <ArrowUpRight size={14} className="transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" /></>}
+            <p className="text-sm leading-relaxed text-[#8c8591]">Feel free to reach out for collaborations, project inquiries, or any questions.</p>
+            <button onClick={handleContact} className="group mt-7 flex items-center gap-3 border border-[#a65ee8] px-5 py-3 text-[10px] uppercase tracking-[.14em] text-[#d7a0fa] transition-all hover:bg-[#a65ee8] hover:text-[#100e16] cursor-pointer" data-testid="button-contact-submit">
+              {submitted ? <><Check size={14} /> Message Sent</> : <>Send Message <ArrowUpRight size={14} className="transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" /></>}
             </button>
           </div>
         </div>
@@ -374,18 +452,18 @@ function Home() {
 
       {/* ini footer section bolo */}
       <footer className="mx-auto flex max-w-[1440px] flex-col gap-8 border-t border-[#302938] px-6 py-8 md:flex-row md:items-center md:justify-between md:px-10">
-        <span className="mono text-[9px] uppercase tracking-[.2em] text-[#716a78]">Synth Era © 2025</span>
+        <span className="mono text-[9px] uppercase tracking-[.2em] text-[#716a78]">Muhammad Alif Ramadhan © 2026</span>
         <div className="flex gap-6">
-          <button onClick={() => window.alert('Instagram channel opening soon.')} className="mono text-[9px] uppercase tracking-[.15em] text-[#716a78] transition-colors hover:text-[#e9e5dd] cursor-pointer" data-testid="link-instagram">Instagram</button>
-          <button onClick={() => window.alert('Contact: studio@synthera.example')} className="mono text-[9px] uppercase tracking-[.15em] text-[#716a78] transition-colors hover:text-[#e9e5dd] cursor-pointer" data-testid="link-contact">Contact</button>
+          <button onClick={() => window.open('https://instagram.com/ayiprmd_', '_blank')} className="mono text-[9px] uppercase tracking-[.15em] text-[#716a78] transition-colors hover:text-[#e9e5dd] cursor-pointer" data-testid="link-instagram">Instagram</button>
+          <button onClick={() => window.alert('Contact: aliframadhan@example.com')} className="mono text-[9px] uppercase tracking-[.15em] text-[#716a78] transition-colors hover:text-[#e9e5dd] cursor-pointer" data-testid="link-contact">Contact</button>
         </div>
         <button onClick={() => scrollTo('#top')} className="mono flex items-center gap-2 text-[9px] uppercase tracking-[.15em] text-[#716a78] transition-colors hover:text-[#e9e5dd] cursor-pointer" data-testid="button-back-top">Back to top <ArrowDown size={12} className="rotate-180" /></button>
       </footer> 
 
-      {ordered && (
-        <div className="fixed bottom-6 left-1/2 z-40 flex -translate-x-1/2 items-center gap-3 border border-[#71428a] bg-[#24132e] px-5 py-3 text-xs text-[#e4c8ef] shadow-2xl" role="status" data-testid="status-preorder-success">
+      {submitted && (
+        <div className="fixed bottom-6 left-1/2 z-40 flex -translate-x-1/2 items-center gap-3 border border-[#71428a] bg-[#24132e] px-5 py-3 text-xs text-[#e4c8ef] shadow-2xl" role="status" data-testid="status-contact-success">
           <span className="grid h-5 w-5 place-items-center rounded-full bg-[#a65ee8] text-[#160e1d]"><Check size={13} /></span>
-          Your reservation is held. We&apos;ll be in touch.
+          Your message has been sent. I&apos;ll get back to you soon.
         </div>
       )}
     </main>

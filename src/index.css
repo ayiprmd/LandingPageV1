@@ -99,7 +99,7 @@ button { font: inherit; }
   50% { transform: translateY(-12px) rotate(1deg); }
 }
 
-.jacket-window {
+.photo-window {
   position: absolute;
   inset: 8% 7% 2%;
   overflow: hidden;
@@ -107,7 +107,7 @@ button { font: inherit; }
   -webkit-mask-image: radial-gradient(ellipse 61% 57% at 50% 48%, #000 50%, transparent 84%);
   mask-image: radial-gradient(ellipse 61% 57% at 50% 48%, #000 50%, transparent 84%);
 }
-.jacket-window img {
+.photo-window img {
   position: absolute;
   width: 150%;
   max-width: none;
@@ -121,12 +121,12 @@ button { font: inherit; }
 .hairline { height: 1px; background: linear-gradient(90deg, transparent, rgba(238,234,228,.25), transparent); }
 
 @media (max-width: 767px) {
-  .jacket-window {
+  .photo-window {
     inset: 15% -20% 4%;
     -webkit-mask-image: radial-gradient(ellipse 62% 51% at 50% 46%, #000 39%, transparent 79%);
     mask-image: radial-gradient(ellipse 62% 51% at 50% 46%, #000 39%, transparent 79%);
   }
-  .jacket-window img { width: 183%; left: -41.5%; top: -5%; }
+  .photo-window img { width: 183%; left: -41.5%; top: -5%; }
 }
 
 @media (prefers-reduced-motion: reduce) {
