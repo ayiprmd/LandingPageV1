@@ -262,25 +262,25 @@ function Home() {
       {/* ini Hero section lur */}
       <section id="top" className="relative mx-auto min-h-[760px] max-w-[1440px] px-6 pb-16 md:min-h-[calc(100dvh-96px)] md:px-10 md:pb-10" aria-label="hero section">
         <div className="pointer-events-none absolute left-1/2 top-[7%] h-[620px] w-[min(92vw,1060px)] -translate-x-1/2 rounded-full bg-[#6c2c8b]/10 blur-[100px]" />
-        <div className="absolute left-1/2 top-[5%] z-0 w-full -translate-x-1/2 space-y-8 text-center md:top-[3%]">
+        <div className="pointer-events-none absolute left-1/2 top-[5%] z-0 w-full -translate-x-1/2 select-none space-y-8 text-center opacity-20 md:top-[3%] md:opacity-100">
           <h1 className="display-title select-none whitespace-nowrap text-[18vw] text-white/35 tracking-tight md:text-[18vw] md:tracking-[24px] lg:text-[240px]">MUHAMMAD</h1>
           <h1 className="display-title -mt-[1vw] select-none whitespace-nowrap text-[18vw] text-white/35 tracking-tight md:text-[18vw] md:tracking-[24px] lg:text-[240px]">ALIF</h1>
           <h1 className="display-title -mt-[1vw] select-none whitespace-nowrap text-[19vw] text-white/35 tracking-tight md:text-[18vw] md:tracking-[24px] lg:text-[240px]">RAMADHAN</h1>
         </div>
 
         {/* ini section info di kiri */}
-        <div className="relative z-10 grid min-h-[700px] grid-cols-1 md:min-h-[calc(100dvh-150px)] md:grid-cols-[1fr_1.1fr_1fr] md:items-center">
+        <div className="relative z-10 flex min-h-[700px] flex-col md:grid md:min-h-[calc(100dvh-150px)] md:grid-cols-[1fr_1.1fr_1fr] md:items-center">
           <motion.div
-            className="order-2 mt-[-5px] self-end pb-8 md:order-1 md:mt-28 md:pb-16"
+            className="relative z-10 order-2 flex flex-col gap-5 pt-[calc(46vw+140px)] md:order-1 md:mt-28 md:block md:self-end md:pt-0 md:pb-16"
             initial={{ opacity: 0, x: -120 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: false, amount: 0.3 }}
             transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
           >
-            <p className="mono mb-4 text-[9px] uppercase text-[#eeeae4]">Programmer.</p>
-            <h2 className="script max-w-[420px] -rotate-3 text-[57px] leading-[.8] text-[#9b45d2] md:text-[76px]">Fullstack Developer</h2>
-            <p className="script mt-5 text-[28px] text-[#eeeae4] md:text-[34px]">Web Dev</p>
-            <div className="mt-8 max-w-[260px] border-l border-[#82509e] pl-4">
+            <p className="mono text-[9px] uppercase text-[#eeeae4] md:mb-4">Programmer.</p>
+            <h2 className="script max-w-[420px] -rotate-3 text-4xl leading-[.95] text-[#9b45d2] sm:text-5xl md:text-[76px] md:leading-[.8]">Fullstack Developer</h2>
+            <p className="script text-[28px] text-[#eeeae4] md:mt-5 md:text-[34px]">Web Dev</p>
+            <div className="max-w-md border-l border-[#82509e] pl-4 md:mt-8 md:max-w-[260px]">
               <p className="mono text-[10px] uppercase leading-[1.7] text-[#d4ced8]">VISI MISI</p>
               <p className="mt-2 text-xs leading-relaxed text-[#c9c2d1]">Membuat website Digital yang Responsif dan berfokus pada pengalaman pengguna.</p>
             </div>
@@ -290,7 +290,7 @@ function Home() {
 
         {/* ini card project */}
           <motion.aside
-            className="outline outline-1 order-3 mb-[-70px] mt-[35px] ml-auto w-[230px] border border-[#39313f] bg-[#1b1722]/80 p-5 backdrop-blur-sm md:mt-24 md:mb-0"
+            className="outline outline-1 order-3 mt-8 w-full border border-[#39313f] bg-[#1b1722]/80 p-5 backdrop-blur-sm md:mt-24 md:ml-auto md:w-[230px]"
             initial={{ opacity: 0, x: 120 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: false, amount: 0.3 }}
@@ -301,7 +301,7 @@ function Home() {
               <span className="mono text-[8px] uppercase text-[#716a78]">September 2026</span>
             </div>
             <h3 className="max-w-[130px] text-[19px] font-semibold uppercase leading-[.95] tracking-[-.04em] text-[#eeeae4]">Proyek Terakhir</h3>
-            <p className="mt-4 text-[12px] leading-relaxed text-[#88808e]">amu bisa melihat proyek terbaru saya di bagian PROJECT, tempat saya membangun situs web dengan menerapkan keahlian front-end dan UI/UX.</p>
+            <p className="mt-4 text-[12px] leading-relaxed text-[#88808e]">Kamu bisa melihat proyek terbaru saya di bagian PROJECT, tempat saya membangun situs web dengan menerapkan keahlian front-end dan UI/UX.</p>
             <button onClick={scrollToProjects} className="group mt-5 flex items-center gap-2 text-[10px] uppercase tracking-[.1em] text-[#c581ef] cursor-pointer" data-testid="button-project-card">
               {submitted ? 'Inquired' : 'Cek Proyek'} <ArrowUpRight size={13} className="transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
             </button>
