@@ -178,11 +178,11 @@ function Home() {
             transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
           >
             <p className="mono mb-4 text-[9px] uppercase text-[#887f8e]">Programmer.</p>
-            <h2 className="script max-w-[420px] -rotate-3 text-[57px] leading-[.8] text-[#9b45d2] md:text-[76px]">Front End Developer</h2>
-            <p className="script mt-5 text-[28px] text-[#eeeae4] md:text-[34px]">UI / UX</p>
+            <h2 className="script max-w-[420px] -rotate-3 text-[57px] leading-[.8] text-[#9b45d2] md:text-[76px]">Fullstack Developer</h2>
+            <p className="script mt-5 text-[28px] text-[#eeeae4] md:text-[34px]">Web Dev</p>
             <div className="mt-8 max-w-[260px] border-l border-[#82509e] pl-4">
               <p className="mono text-[10px] uppercase leading-[1.7] text-[#d4ced8]">VISI MISI</p>
-              <p className="mt-2 text-xs leading-relaxed text-[#7d7684]">Membuat antarmuka digital yang bersih, Responsif dan berfokus pada pengguna menggunakan React.</p>
+              <p className="mt-2 text-xs leading-relaxed text-[#7d7684]">Membuat website Digital yang Responsif dan berfokus pada pengalaman pengguna.</p>
             </div>
           </motion.div>
 
