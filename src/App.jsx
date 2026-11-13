@@ -55,7 +55,7 @@ const projects = [
       '/Project/portfolio/PreviewProject2-3.jpeg',
       '/Project/portfolio/PreviewProject2-4.jpeg',
     ],
-    github: 'https://github.com/ayiprmd/LandingPageV1',
+    github: 'https://github.com/ayiprmd/TaniKarbon',
     demo: null,
     featured: false,
     testId: 'card-project-2',
@@ -395,9 +395,10 @@ function Home() {
         </div>
         {/* Mobile & tablet: coverflow carousel */}
         <div className="mt-14 lg:hidden">
+          {/* Half-carousel spacers (minus half card, plus negative margin) keep first/last slides dead-center */}
           <div
             ref={carouselRef}
-            className="scrollbar-hide -mx-6 flex snap-x snap-mandatory scroll-smooth gap-0 overflow-x-auto py-6 md:-mx-10 px-[calc(50%-42.5vw)] md:px-[calc(50%-min(36vw,320px))]"
+            className="scrollbar-hide -mx-6 flex snap-x snap-mandatory scroll-smooth gap-0 overflow-x-auto py-6 before:block before:w-[calc(50%_-_min(45vw,320px)_+_28px)] before:shrink-0 before:content-[''] after:block after:w-[calc(50%_-_min(45vw,320px)_+_28px)] after:shrink-0 after:content-[''] md:-mx-10 md:before:w-[calc(50%_-_min(40vw,380px)_+_32px)] md:after:w-[calc(50%_-_min(40vw,380px)_+_32px)]"
             aria-label="Project cards carousel"
           >
             {projects.map((project, index) => {
@@ -411,10 +412,10 @@ function Home() {
                   }}
                   data-slide-index={index}
                   onClick={() => setActiveProject(project)}
-                  className={`group relative aspect-video w-[85vw] shrink-0 snap-center overflow-hidden rounded-md border p-5 text-left cursor-pointer origin-center -mx-8 transition-[transform,opacity,box-shadow] duration-300 ease-out md:w-[72vw] md:max-w-[640px] md:-mx-12 ${
+                  className={`group relative aspect-video w-[90vw] max-w-[640px] shrink-0 snap-center overflow-hidden rounded-md border p-5 text-left cursor-pointer origin-center -mx-7 transition-all duration-300 ease-in-out md:w-[80vw] md:max-w-[760px] md:-mx-8 ${
                     isActive
                       ? 'z-30 scale-100 opacity-100 shadow-2xl shadow-black/50'
-                      : 'z-0 scale-75 opacity-50'
+                      : 'z-0 scale-[0.85] opacity-50'
                   } ${
                     project.muted
                       ? 'border-[#26212d] bg-[#1a1620]'
