@@ -1,9 +1,10 @@
 import { motion } from 'framer-motion';
 import { RandomLetterSwap } from '@/components/ui/random-letter-swap';
-import { useState, useRef, useCallback } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { ArrowDown, ArrowUpRight, Check, Menu, MoveRight, X } from 'lucide-react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ErrorBoundary } from '@/components/error-boundary';
+import { ProjectPreviewModal } from '@/components/ProjectPreviewModal';
 import { Toaster } from '@/components/ui/toaster';
 import { TooltipProvider } from '@/components/ui/tooltip';
 import NotFound from '@/pages/not-found';
@@ -18,6 +19,62 @@ const sectionVariants = {
   }
 };
 
+
+const projects = [
+  {
+    id: 1,
+    number: '01',
+    label: 'VClass Tracker',
+    title: 'VClass Tracker',
+    description: 'Dashboard pelacak dan pengingat deadline tugas mahasiswa.',
+    cover: '/Project 1 - VclassTracker/CoverProject1.jpeg',
+    images: [
+      '/Project 1 - VclassTracker/CoverProject1.jpeg',
+      '/Project 1 - VclassTracker/WhatsApp Image 2026-11-13 at 20.10.26.jpeg',
+      '/Project 1 - VclassTracker/WhatsApp Image 2026-11-13 at 20.10.58.jpeg',
+      '/Project 1 - VclassTracker/WhatsApp Image 2026-11-13 at 20.11.15.jpeg',
+      '/Project 1 - VclassTracker/WhatsApp Image 2026-11-13 at 20.11.36.jpeg',
+    ],
+    github: 'https://github.com/ayiprmd/VClassTracker',
+    demo: null,
+    featured: true,
+    testId: 'card-project-1',
+  },
+  {
+    id: 2,
+    number: '02',
+    label: 'TaniKarbon',
+    title: 'TaniKarbon',
+    description: 'Portofolio untuk menampilkan hasil karya yang saya buat.',
+    cover: '/Project/portfolio/CoverProject2.jpeg',
+    images: [
+      '/Project/portfolio/CoverProject2.jpeg',
+      '/Project/portfolio/PreviewProject2.jpeg',
+      '/Project/portfolio/PreviewProject2-1.jpeg',
+      '/Project/portfolio/PreviewProject2-2.jpeg',
+      '/Project/portfolio/PreviewProject2-3.jpeg',
+      '/Project/portfolio/PreviewProject2-4.jpeg',
+    ],
+    github: 'https://github.com/ayiprmd/LandingPageV1',
+    demo: null,
+    featured: false,
+    testId: 'card-project-2',
+  },
+  {
+    id: 3,
+    number: '03',
+    label: 'Upcoming',
+    title: 'On Progress.',
+    description: 'Pantau terus untuk proyek mendatang.',
+    cover: '/Project/ComingSoon.jpg',
+    images: ['/Project/ComingSoon.jpg'],
+    github: null,
+    demo: null,
+    featured: false,
+    muted: true,
+    testId: 'card-project-3',
+  },
+];
 
 const certificates = [
   {
@@ -55,27 +112,10 @@ const navItems = [
 function Home() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [submitted, setSubmitted] = useState(false);
-
-  // 3D tilt state for profile photo
-  const [tilt, setTilt] = useState({ rotateX: 0, rotateY: 0});
-  const [isHovering, setIsHovering] = useState(false);
-  const photoRef = useRef(null);
-
-  const handlePhotoMouseMove = useCallback((e) => {
-    if (!photoRef.current) return;
-    const rect = photoRef.current.getBoundingClientRect();
-    const x = (e.clientX - rect.left) / rect.width;
-    const y = (e.clientY - rect.top) / rect.height;
-    const rotateY = (x - 0.5) * 24;
-    const rotateX = (0.5 - y) * 24;
-    setTilt({ rotateX, rotateY});
-  }, []);
-
-  const handlePhotoMouseEnter = useCallback(() => setIsHovering(true), []);
-  const handlePhotoMouseLeave = useCallback(() => {
-    setIsHovering(false);
-    setTilt({ rotateX: 0, rotateY: 0});
-  }, []);
+  const [activeProject, setActiveProject] = useState(null);
+  const [activeSlide, setActiveSlide] = useState(0);
+  const carouselRef = useRef(null);
+  const slideRefs = useRef([]);
 
   const scrollTo = (href) => {
     document.querySelector(href)?.scrollIntoView({ behavior: 'smooth' });
@@ -90,7 +130,67 @@ function Home() {
 
   const scrollToContact = () => scrollTo('#contact');
   const scrollToProjects = () => scrollTo('#projects');
+  const featuredProject = projects.find((project) => project.featured);
+  const sideProjects = projects.filter((project) => !project.featured);
 
+  useEffect(() => {
+    const root = carouselRef.current;
+    if (!root) return undefined;
+
+    let rafId = 0;
+
+    const updateActiveSlide = () => {
+      rafId = 0;
+      const rootRect = root.getBoundingClientRect();
+      const rootCenter = rootRect.left + rootRect.width / 2;
+
+      let closestIndex = 0;
+      let closestDistance = Number.POSITIVE_INFINITY;
+
+      slideRefs.current.forEach((slide, index) => {
+        if (!slide) return;
+        const slideRect = slide.getBoundingClientRect();
+        const slideCenter = slideRect.left + slideRect.width / 2;
+        const distance = Math.abs(slideCenter - rootCenter);
+        if (distance < closestDistance) {
+          closestDistance = distance;
+          closestIndex = index;
+        }
+      });
+
+      setActiveSlide((prev) => (prev === closestIndex ? prev : closestIndex));
+    };
+
+    const onScroll = () => {
+      if (rafId) return;
+      rafId = window.requestAnimationFrame(updateActiveSlide);
+    };
+
+    root.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', updateActiveSlide);
+    updateActiveSlide();
+
+    return () => {
+      root.removeEventListener('scroll', onScroll);
+      window.removeEventListener('resize', updateActiveSlide);
+      if (rafId) window.cancelAnimationFrame(rafId);
+    };
+  }, []);
+
+  const scrollToSlide = (index) => {
+    const root = carouselRef.current;
+    const slide = slideRefs.current[index];
+    if (!root || !slide) return;
+    const rootRect = root.getBoundingClientRect();
+    const slideRect = slide.getBoundingClientRect();
+    const rootCenter = rootRect.left + rootRect.width / 2;
+    const slideCenter = slideRect.left + slideRect.width / 2;
+    root.scrollTo({
+      left: root.scrollLeft + (slideCenter - rootCenter),
+      behavior: 'smooth',
+    });
+    setActiveSlide(index);
+  };
 
   return (
     <main className="page-shell grain min-h-[100dvh] overflow-hidden">
@@ -163,9 +263,9 @@ function Home() {
       <section id="top" className="relative mx-auto min-h-[760px] max-w-[1440px] px-6 pb-16 md:min-h-[calc(100dvh-96px)] md:px-10 md:pb-10" aria-label="hero section">
         <div className="pointer-events-none absolute left-1/2 top-[7%] h-[620px] w-[min(92vw,1060px)] -translate-x-1/2 rounded-full bg-[#6c2c8b]/10 blur-[100px]" />
         <div className="absolute left-1/2 top-[5%] z-0 w-full -translate-x-1/2 space-y-8 text-center md:top-[3%]">
-          <h1 className="display-title select-none whitespace-nowrap text-[18vw] text-[#4d4950]/45 tracking-tight md:text-[18vw] md:tracking-[24px] lg:text-[240px]">MUHAMMAD</h1>
-          <h1 className="display-title -mt-[1vw] select-none whitespace-nowrap text-[18vw] text-[#4d4950]/45 tracking-tight md:text-[18vw] md:tracking-[24px] lg:text-[240px]">ALIF</h1>
-          <h1 className="display-title -mt-[1vw] select-none whitespace-nowrap text-[19vw] text-[#4d4950]/45 tracking-tight md:text-[18vw] md:tracking-[24px] lg:text-[240px]">RAMADHAN</h1>
+          <h1 className="display-title select-none whitespace-nowrap text-[18vw] text-white/35 tracking-tight md:text-[18vw] md:tracking-[24px] lg:text-[240px]">MUHAMMAD</h1>
+          <h1 className="display-title -mt-[1vw] select-none whitespace-nowrap text-[18vw] text-white/35 tracking-tight md:text-[18vw] md:tracking-[24px] lg:text-[240px]">ALIF</h1>
+          <h1 className="display-title -mt-[1vw] select-none whitespace-nowrap text-[19vw] text-white/35 tracking-tight md:text-[18vw] md:tracking-[24px] lg:text-[240px]">RAMADHAN</h1>
         </div>
 
         {/* ini section info di kiri */}
@@ -177,47 +277,16 @@ function Home() {
             viewport={{ once: false, amount: 0.3 }}
             transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
           >
-            <p className="mono mb-4 text-[9px] uppercase text-[#887f8e]">Programmer.</p>
+            <p className="mono mb-4 text-[9px] uppercase text-[#eeeae4]">Programmer.</p>
             <h2 className="script max-w-[420px] -rotate-3 text-[57px] leading-[.8] text-[#9b45d2] md:text-[76px]">Fullstack Developer</h2>
             <p className="script mt-5 text-[28px] text-[#eeeae4] md:text-[34px]">Web Dev</p>
             <div className="mt-8 max-w-[260px] border-l border-[#82509e] pl-4">
               <p className="mono text-[10px] uppercase leading-[1.7] text-[#d4ced8]">VISI MISI</p>
-              <p className="mt-2 text-xs leading-relaxed text-[#7d7684]">Membuat website Digital yang Responsif dan berfokus pada pengalaman pengguna.</p>
+              <p className="mt-2 text-xs leading-relaxed text-[#c9c2d1]">Membuat website Digital yang Responsif dan berfokus pada pengalaman pengguna.</p>
             </div>
           </motion.div>
 
-        {/* ini foto */}
-          <div
-            ref={photoRef}
-            className="relative order-1 h-[530px] sm:order-1 md:order-2 md:h-[900px] cursor-pointer"
-            onMouseMove={handlePhotoMouseMove}
-            onMouseEnter={handlePhotoMouseEnter}
-            onMouseLeave={handlePhotoMouseLeave}
-            style={{ perspective: '800px' }}
-          >
-            <div
-              ref={photoRef}
-              className="relative order-1 h-[530px] sm:order-1 md:order-2 md:h-[700px] cursor-pointer"
-              onMouseMove={handlePhotoMouseMove}
-              onMouseEnter={handlePhotoMouseEnter}
-              onMouseLeave={handlePhotoMouseLeave}
-              style={{ perspective: '800px' }}
-            >
-              <div
-                className={`photo-window ${isHovering ? '' : 'float-slow'}`}
-                aria-label="Profile"
-                style={{
-                  transform: `rotateX(${tilt.rotateX}deg) rotateY(${tilt.rotateY}deg) scale(${isHovering ? 1.05 : 1})`,
-                  transition: isHovering
-                    ? 'transform 0.1s ease-out'
-                    : 'transform 0.6s cubic-bezier(.16,1,.3,1)',
-                  pointerEvents: 'auto',
-                }}
-              >
-                <img className="-mt-[15px] h-full w-full object-contain mx-auto !opacity-105" src="/logo.png" alt="Profile" />
-              </div>
-            </div>
-          </div>
+          <div className="hidden md:block md:order-2" />
 
         {/* ini card project */}
           <motion.aside
@@ -261,22 +330,22 @@ function Home() {
 
           <div className="reveal-delay-2 reveal">
             <p className="mono text-[9px] uppercase tracking-[.28em] text-[#a65ee8]">Tujuan Saya</p>
-            <h2 className="mt-5 text-4xl font-semibold uppercase leading-[.9] tracking-[-.06em] text-[#ffffff] md:text-7xl">Membangun<br /><span className="text-[#ffffff]">Antarmuka Modern</span></h2>
+            <h2 className="mt-5 text-4xl font-semibold uppercase leading-[.9] tracking-[-.06em] text-[#ffffff] md:text-7xl">Membangun<br /><span className="text-[#ffffff]">Solusi Fullstack</span></h2>
           </div>
 
           <p className="max-w-[440px] text-sm leading-[1.8] text-[#8c8591] md:justify-self-end">
-            Merancang antarmuka modern yang menarik secara visual dengan arsitektur komponen yang terstruktur dan styling yang presisi. 
-            Saya memprioritaskan aksesibilitas serta tata letak yang intuitif agar setiap antarmuka langsung mudah dipahami. 
-            Pendekatan utama saya adalah menggabungkan estetika visual yang kuat dengan pengalaman pengguna yang responsif dan lancar.
+            Membangun produk digital secara end-to-end—dari antarmuka yang responsif hingga logika server, API, dan pengelolaan data.
+            Saya fokus pada arsitektur yang bersih, alur yang andal, dan pengalaman pengguna yang tetap nyaman.
+            Passion saya sebagai fullstack developer adalah menghubungkan desain, fungsionalitas, dan performa dalam satu sistem yang utuh.
           </p>
 
         </div>
         
         <div className="mt-20 grid gap-px border-y border-[#302938] md:grid-cols-3">
           {[
-            ['01', 'tata letak', 'Menyusun komponen dengan cerdas agar pengguna tidak merasa bingung saat pertama kali berkunjung.'],
-            ['02', 'menyesuaikan tampilan', 'Memilih gaya visual yang tepat dan estetika modern yang disesuaikan dengan identitas produk.'],
-            ['03', 'aksesibilitas', 'Merancang dengan struktur yang jelas dan pola yang inklusif agar setiap pengguna dapat berinteraksi dengan mudah.'],
+            ['01', 'antarmuka', 'Merancang tampilan yang jelas dan responsif agar pengguna langsung paham cara berinteraksi dengan produk.'],
+            ['02', 'logika & api', 'Membangun alur backend, endpoint, dan proses bisnis yang stabil agar setiap fitur berjalan konsisten.'],
+            ['03', 'data & sistem', 'Mengelola data dan arsitektur sistem agar aplikasi tetap skalabel, aman, dan mudah dikembangkan.'],
           ].map(([number, title, copy]) => (
             <article className="group border-b border-[#302938] py-8 md:border-b-0 md:border-r md:px-8 md:first:pl-0 md:last:border-0" key={number} data-testid={`card-feature-${number}`}>
               <span className="mono text-[13px] text-[#a65ee8]">{number}</span>
@@ -324,85 +393,159 @@ function Home() {
           </div>
           <p className="mono text-[13px] uppercase tracking-[.12em] text-[#716a78]">Beberapa proyek yang terakhir di buat.</p>
         </div>
-        <div className="mt-14 grid gap-4 md:grid-cols-[1.2fr_.8fr]">
-          <motion.a
-            href="https://github.com/ayiprmd/VClassTracker" 
-            target="_blank"
-            rel="noopener noreferrer"
-            className="group relative rounded-md block min-h-[390px] overflow-hidden bg-[#241d2d] p-7 md:min-h-[540px]"
-            data-testid="card-project-1"
+        {/* Mobile & tablet: coverflow carousel */}
+        <div className="mt-14 lg:hidden">
+          <div
+            ref={carouselRef}
+            className="scrollbar-hide -mx-6 flex snap-x snap-mandatory scroll-smooth gap-0 overflow-x-auto py-6 md:-mx-10 px-[calc(50%-42.5vw)] md:px-[calc(50%-min(36vw,320px))]"
+            aria-label="Project cards carousel"
+          >
+            {projects.map((project, index) => {
+              const isActive = activeSlide === index;
+              return (
+                <button
+                  key={project.id}
+                  type="button"
+                  ref={(node) => {
+                    slideRefs.current[index] = node;
+                  }}
+                  data-slide-index={index}
+                  onClick={() => setActiveProject(project)}
+                  className={`group relative aspect-video w-[85vw] shrink-0 snap-center overflow-hidden rounded-md border p-5 text-left cursor-pointer origin-center -mx-8 transition-[transform,opacity,box-shadow] duration-300 ease-out md:w-[72vw] md:max-w-[640px] md:-mx-12 ${
+                    isActive
+                      ? 'z-30 scale-100 opacity-100 shadow-2xl shadow-black/50'
+                      : 'z-0 scale-75 opacity-50'
+                  } ${
+                    project.muted
+                      ? 'border-[#26212d] bg-[#1a1620]'
+                      : project.featured
+                        ? 'border-transparent bg-[#241d2d]'
+                        : 'border-[#302938] bg-[#17131f]'
+                  }`}
+                  data-testid={project.testId}
+                >
+                  <div className="absolute inset-0 overflow-hidden bg-[#1a1620]">
+                    <img
+                      src={project.cover}
+                      alt={`${project.title} project preview`}
+                      className="h-full w-full object-cover object-center transition-transform duration-700 group-hover:scale-[1.02]"
+                    />
+                  </div>
+                  {!project.muted && (
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#100e16]/95 via-[#100e16]/25 to-transparent" />
+                  )}
+                  <div className="relative flex h-full flex-col justify-between">
+                    <span className={`mono text-[9px] uppercase ${project.muted ? 'text-[#716a78]' : 'text-[#e4c8ef]'}`}>
+                      {project.number} / {project.label}
+                    </span>
+                    <div>
+                      <p className="mono text-2xl text-[#ded3e2]">{project.title}</p>
+                      <p className={`mt-2 max-w-[220px] text-xs leading-relaxed ${project.muted ? 'text-[#ffffff]' : 'text-[#d9cedd]'}`}>
+                        {project.description}
+                      </p>
+                    </div>
+                  </div>
+                </button>
+              );
+            })}
+          </div>
+
+          <div
+            className="mt-5 flex items-center justify-center gap-2"
+            role="tablist"
+            aria-label="Project carousel pagination"
+          >
+            {projects.map((project, index) => {
+              const isActive = activeSlide === index;
+              return (
+                <button
+                  key={project.id}
+                  type="button"
+                  role="tab"
+                  aria-label={`Show project ${index + 1}: ${project.title}`}
+                  aria-selected={isActive}
+                  onClick={() => scrollToSlide(index)}
+                  className={`h-1.5 rounded-full transition-all duration-300 cursor-pointer ${
+                    isActive ? 'w-5 bg-[#b76cf4]' : 'w-1.5 bg-[#4a4354] hover:bg-[#716a78]'
+                  }`}
+                  data-testid={`button-project-dot-${index + 1}`}
+                />
+              );
+            })}
+          </div>
+        </div>
+
+        {/* Desktop: structured grid */}
+        <div className="mt-14 hidden gap-4 lg:grid lg:grid-cols-[1.2fr_.8fr]">
+          <motion.button
+            type="button"
+            onClick={() => setActiveProject(featuredProject)}
+            className="group relative aspect-video w-full overflow-hidden rounded-md bg-[#241d2d] p-7 text-left cursor-pointer"
+            data-testid={featuredProject.testId}
             initial={{ opacity: 0, x: -100, y: 50 }}
             whileInView={{ opacity: 1, x: 0, y: 0 }}
             viewport={{ once: false, amount: 0.2 }}
             whileHover={{ y: -8, scale: 1.01 }}
             transition={{ type: 'spring', stiffness: 260, damping: 20 }}
           >
-            <img
-              src="/Project/project1.png"
-              alt="VClass Tracker project preview"
-              className="absolute inset-0 h-full w-full object-cover transition-transform duration-700"
-            />
+            <div className="absolute inset-0 overflow-hidden bg-[#1a1620]">
+              <img
+                src={featuredProject.cover}
+                alt={`${featuredProject.title} project preview`}
+                className="h-full w-full object-cover object-center transition-transform duration-700 group-hover:scale-[1.02]"
+              />
+            </div>
             <div className="absolute inset-0 bg-gradient-to-t from-[#100e16]/95 via-[#100e16]/20 to-transparent" />
             <div className="relative flex h-full flex-col justify-between">
-              <span className="mono text-[9px] uppercase text-[#e4c8ef]">01 / VClass Tracker</span>
+              <span className="mono text-[9px] uppercase text-[#e4c8ef]">{featuredProject.number} / {featuredProject.label}</span>
               <div className="translate-y-2 transition-transform duration-500 group-hover:translate-y-0">
-                <p className="mono text-3xl text-[#FFFFFF]">VClass Tracker</p>
-                <p className="mt-3 max-w-[200px] text-xs leading-relaxed text-[#e4dbe8]">Dashboard pelacak dan pengingat deadline tugas mahasiswa.</p>
+                <p className="mono text-3xl text-[#FFFFFF]">{featuredProject.title}</p>
+                <p className="mt-3 max-w-[200px] text-xs leading-relaxed text-[#e4dbe8]">{featuredProject.description}</p>
               </div>
             </div>
-          </motion.a>
-          <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-1">
-            <motion.a
-              href="https://github.com/ayiprmd/LandingPageV1" 
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group relative rounded-md min-h-[255px] overflow-hidden border border-[#302938] bg-[#17131f] p-6"
-              data-testid="card-project-2"
-              initial={{ opacity: 0, x: 100, y: -50 }}
-              whileInView={{ opacity: 1, x: 0, y: 0 }}
-              viewport={{ once: false, amount: 0.2 }}
-              whileHover={{ y: -6, scale: 1.02 }}
-              transition={{ type: 'spring', stiffness: 260, damping: 20 }}
-            >
-              <img
-                src="/Project/project2.png"
-                alt="Portfolio website project preview"
-                className="absolute inset-0 h-full w-full object-cover transition-transform duration-700"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#100e16]/95 via-[#100e16]/25 to-transparent" />
-              <div className="relative flex h-full flex-col justify-between">
-                <span className="mono text-[9px] uppercase text-[#e4c8ef]">02 / Portfolio Website</span>
-                <div className="translate-y-2 transition-transform duration-500 group-hover:translate-y-0">
-                  <p className="mono text-3xl text-[#ded3e2]">Portofolio</p>
-                  <p className="mt-2 text-xs leading-relaxed text-[#d9cedd]">Portofolio untuk menampilkan hasil karya yang saya buat.</p>
+          </motion.button>
+
+          <div className="grid gap-4 md:grid-cols-1">
+            {sideProjects.map((project, index) => (
+              <motion.button
+                key={project.id}
+                type="button"
+                onClick={() => setActiveProject(project)}
+                className={`group relative aspect-video w-full overflow-hidden rounded-md border p-6 text-left cursor-pointer ${
+                  project.muted
+                    ? 'border-[#26212d] bg-[#1a1620]'
+                    : 'border-[#302938] bg-[#17131f]'
+                }`}
+                data-testid={project.testId}
+                initial={{ opacity: 0, x: 100, y: index === 0 ? -50 : 50 }}
+                whileInView={{ opacity: 1, x: 0, y: 0 }}
+                viewport={{ once: false, amount: 0.2 }}
+                whileHover={{ y: -6, scale: 1.02 }}
+                transition={{ type: 'spring', stiffness: 260, damping: 20 }}
+              >
+                <div className={`absolute inset-0 overflow-hidden ${project.muted ? 'bg-[#1a1620]' : 'bg-[#17131f]'}`}>
+                  <img
+                    src={project.cover}
+                    alt={`${project.title} project preview`}
+                    className="h-full w-full object-cover object-center transition-transform duration-700 group-hover:scale-[1.02]"
+                  />
                 </div>
-              </div>
-            </motion.a>
-            <motion.a
-              href="" 
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group relative rounded-md min-h-[255px] overflow-hidden rounded-md border border-[#26212d] bg-[#1a1620] p-6"
-              data-testid="card-project-3"
-              initial={{ opacity: 0, x: 100, y: 50 }}
-              whileInView={{ opacity: 1, x: 0, y: 0 }}
-              viewport={{ once: false, amount: 0.2 }}
-              whileHover={{ y: -6, scale: 1.02 }}
-              transition={{ type: 'spring', stiffness: 260, damping: 20 }}
-            >
-              <img
-                src="/Project/ComingSoon.jpg"
-                alt="Coming Soon project preview"
-                className="absolute inset-0 h-full w-full object-cover transition-transform duration-700"
-              />
-              <div className="relative flex h-full flex-col justify-between">
-                <span className="mono text-[9px] uppercase text-[#716a78]">03 / Upcoming</span>
-                <div className="translate-y-2 transition-transform duration-500 group-hover:translate-y-0">
-                  <p className="mono text-3xl text-[#ded3e2]">On Progress.</p>
-                  <p className="mt-2 text-xs leading-relaxed text-[#ffffff]">Pantau terus untuk proyek mendatang.</p>
+                {!project.muted && (
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#100e16]/95 via-[#100e16]/25 to-transparent" />
+                )}
+                <div className="relative flex h-full flex-col justify-between">
+                  <span className={`mono text-[9px] uppercase ${project.muted ? 'text-[#716a78]' : 'text-[#e4c8ef]'}`}>
+                    {project.number} / {project.label}
+                  </span>
+                  <div className="translate-y-2 transition-transform duration-500 group-hover:translate-y-0">
+                    <p className="mono text-3xl text-[#ded3e2]">{project.title}</p>
+                    <p className={`mt-2 text-xs leading-relaxed ${project.muted ? 'text-[#ffffff]' : 'text-[#d9cedd]'}`}>
+                      {project.description}
+                    </p>
+                  </div>
                 </div>
-              </div>
-            </motion.a>
+              </motion.button>
+            ))}
           </div>
         </div>
         <div className="mt-14">
@@ -477,6 +620,11 @@ function Home() {
           Your message has been sent. I&apos;ll get back to you soon.
         </div>
       )}
+
+      <ProjectPreviewModal
+        project={activeProject}
+        onClose={() => setActiveProject(null)}
+      />
     </main>
   );
 }
