@@ -45,7 +45,7 @@ const projects = [
     number: '02',
     label: 'TaniKarbon',
     title: 'TaniKarbon',
-    description: 'Portofolio untuk menampilkan hasil karya yang saya buat.',
+    description: 'Platform MRV karbon berbasis GIS dan Smart Escrow untuk petani agroforestri.',
     cover: '/Project/portfolio/CoverProject2.jpeg',
     images: [
       '/Project/portfolio/CoverProject2.jpeg',
