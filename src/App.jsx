@@ -262,10 +262,10 @@ function Home() {
       {/* ini Hero section lur */}
       <section id="top" className="relative mx-auto min-h-[760px] max-w-[1440px] px-6 pb-16 md:min-h-[calc(100dvh-96px)] md:px-10 md:pb-10" aria-label="hero section">
         <div className="pointer-events-none absolute left-1/2 top-[7%] h-[620px] w-[min(92vw,1060px)] -translate-x-1/2 rounded-full bg-[#6c2c8b]/10 blur-[100px]" />
-        <div className="pointer-events-none absolute left-1/2 top-[5%] z-0 w-full -translate-x-1/2 select-none space-y-8 text-center opacity-20 md:top-[3%] md:opacity-100">
-          <h1 className="display-title select-none whitespace-nowrap text-[18vw] text-white/35 tracking-tight md:text-[18vw] md:tracking-[24px] lg:text-[240px]">MUHAMMAD</h1>
-          <h1 className="display-title -mt-[1vw] select-none whitespace-nowrap text-[18vw] text-white/35 tracking-tight md:text-[18vw] md:tracking-[24px] lg:text-[240px]">ALIF</h1>
-          <h1 className="display-title -mt-[1vw] select-none whitespace-nowrap text-[19vw] text-white/35 tracking-tight md:text-[18vw] md:tracking-[24px] lg:text-[240px]">RAMADHAN</h1>
+        <div className="pointer-events-none absolute left-1/2 top-[5%] z-0 w-full -translate-x-1/2 select-none space-y-8 text-center md:top-[3%]">
+          <h1 className="display-title select-none whitespace-nowrap text-[18vw] text-white/85 tracking-tight md:text-white/35 md:text-[18vw] md:tracking-[24px] lg:text-[240px]">MUHAMMAD</h1>
+          <h1 className="display-title -mt-[1vw] select-none whitespace-nowrap text-[18vw] text-white/85 tracking-tight md:text-white/35 md:text-[18vw] md:tracking-[24px] lg:text-[240px]">ALIF</h1>
+          <h1 className="display-title -mt-[1vw] select-none whitespace-nowrap text-[19vw] text-white/85 tracking-tight md:text-white/35 md:text-[18vw] md:tracking-[24px] lg:text-[240px]">RAMADHAN</h1>
         </div>
 
         {/* ini section info di kiri */}
