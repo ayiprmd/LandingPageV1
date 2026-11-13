@@ -301,7 +301,7 @@ function Home() {
               <span className="mono text-[8px] uppercase text-[#716a78]">September 2026</span>
             </div>
             <h3 className="max-w-[130px] text-[19px] font-semibold uppercase leading-[.95] tracking-[-.04em] text-[#eeeae4]">Proyek Terakhir</h3>
-            <p className="mt-4 text-[12px] leading-relaxed text-[#88808e]">Kamu bisa melihat proyek terbaru saya di bagian PROJECT, tempat saya membangun situs web dengan menerapkan keahlian front-end dan UI/UX.</p>
+            <p className="mt-4 text-[12px] leading-relaxed text-[#88808e]">Anda bisa melihat proyek terbaru saya di bagian PROJECT, tempat membangun web dengan menerapkan keahlian Fullstack Web Developer.</p>
             <button onClick={scrollToProjects} className="group mt-5 flex items-center gap-2 text-[10px] uppercase tracking-[.1em] text-[#c581ef] cursor-pointer" data-testid="button-project-card">
               {submitted ? 'Inquired' : 'Cek Proyek'} <ArrowUpRight size={13} className="transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
             </button>
